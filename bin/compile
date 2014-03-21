@@ -112,6 +112,7 @@ File::open("#{build_dir}/#{buildpacks_file}", "r") do |buildpacks|
                         end
 
                         # Add new configuration variables to environment
+                        print release["config_vars"]
                         ENV.update(release["config_vars"])
                     else
                         error "No output from child release script.  Ignoring"
