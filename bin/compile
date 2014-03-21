@@ -111,6 +111,12 @@ File::open("#{build_dir}/#{buildpacks_file}", "r") do |buildpacks|
                             release["config_vars"][key] = String value
                         end
 
+                        Dir.entries(env_dir).each do |e|
+                            file = File.open(env_dir+"/"+e, "rb")
+                            contents = file.read
+                            release["config_vars"][e] = contents
+                        end
+
                         # Add new configuration variables to environment
                         print release["config_vars"]
                         ENV.update(release["config_vars"])
