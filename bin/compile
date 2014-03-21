@@ -68,6 +68,7 @@ File::open("#{build_dir}/#{buildpacks_file}", "r") do |buildpacks|
             end
 
             arrow "Fetching child buildpack"
+            `echo $USER`
             `git clone --depth 1 #{branch} #{url} #{buildpack_dir}`
 
             Dir::chdir buildpack_dir do
@@ -111,11 +112,11 @@ File::open("#{build_dir}/#{buildpacks_file}", "r") do |buildpacks|
                             release["config_vars"][key] = String value
                         end
 
-                        Dir.entries(env_dir).each do |e|
-                            file = File.open(env_dir+"/"+e, "rb")
-                            contents = file.read
-                            release["config_vars"][e] = contents
-                        end
+                        #Dir.entries(env_dir).each do |e|
+                        #    file = File.open(env_dir+"/"+e, "rb")
+                        #    contents = file.read
+                        #    release["config_vars"][e] = contents
+                        #end
 
                         # Add new configuration variables to environment
                         print release["config_vars"]
